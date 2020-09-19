@@ -1,0 +1,334 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/css/all.css' %}">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3b4f886c56.js" crossorigin="anonymous"></script>
+  <script src="{% static 'inspect.js' %}"></script>
+  <title>{% block title%}{%endblock%}</title>
+</head>
+
+<body
+  style="background-image: url({% static 'kd.jpg'%});background-repeat: no-repeat;background-attachment: fixed;background-size:cover;max-width:100%;"
+  oncontextmenu="return false;">
+
+  <!-- Navbar -->
+  <center>  <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'assets/img/logo.jpg' %}" class="logo" alt="" width="50" height="50"
+          style="border-radius: 30px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav">
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/home/about"><i class="fas fa-users"></i> About Us</a>
+          </li>
+
+
+          {% if user.is_authenticated%}
+          {% if user.is_superuser%}
+
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/Account/applications/"><i class="fas fa-file-alt"></i> Applications</a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/home/voting_list"><i class="fas fa-poll"></i> Current Voting List</a>
+          </li>
+
+          <li class="nav-item dropdown" style="margin-left: 5px;">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" style="font-weight: bolder;"><i class="fas fa-user-circle"></i>
+              Hello, {{user.username}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <a class="dropdown-item" href="/Account/Aprofile"><i class="fas fa-user"></i> profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/Account/msg"><i class="fas fa-envelope"></i> Inbox</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/Account/logout"><i class="fas fa-sign-in-alt"></i> Logout</a>
+            </div>
+          </li>
+
+          {%else%}
+
+          <li class="nav-item mr-3">
+            <a class="nav-link" data-toggle="modal" data-target="#ContactUsModal" style="cursor: pointer;"><i
+                class="fas fa-phone-square-alt"></i> Contact Us</a>
+          </li>
+
+          <li class="nav-item dropdown" style="margin-left: 5px;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"><i class="fas fa-tasks"></i>
+              Services
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#"><i class="fas fa-user-check"></i> Elector Verification</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/Account/status/"><i class="fa fa-tasks"></i> Application
+                status</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/Account/vote"><i class="fas fa-box "></i> Vote Casting</a>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="margin-left: 5px;">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" style="font-weight: bolder;"><i class="fas fa-user-circle"></i>
+              Hello, {{user.username}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <a class="dropdown-item" href="/Account/profile"><i class="fas fa-user"></i> profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/Account/logout"><i class="fas fa-sign-in-alt"></i> Logout</a>
+            </div>
+          </li>
+
+          {%endif %}
+
+          {%endif %}
+
+        </ul>
+
+        {% if user.is_authenticated is False%}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mr-3">
+            <a class="nav-link" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">
+              <i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link" data-toggle="modal" data-target="#signupModal" style="cursor: pointer;">
+              <i class="fas fa-user-plus"></i> Register</a>
+          </li>
+        </ul>
+        {%endif %}
+      </div>
+    </div>
+  </nav></center>
+
+
+
+  <!-- Login Modal -->
+  <div style="width: auto ;">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <center>
+              <h1 style="color:#252525;font-size: x-large;font-weight: bolder;">Login Using Your Credential</h1>
+            </center><br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form action="/Account/login/" method='post' enctype="multipart/form-data">
+              {% csrf_token %}
+              <div>
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="email" type="text" name="username" placeholder="Enter UserName" title="Enter UserName" autofocus
+                  required>
+              </div>
+              <div>
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;margin-top: 10px;border: solid #252525;"
+                  id="password" type="Password" name="password" placeholder="Enter Password " title="Enter Password"
+                  required>
+              </div><br>
+
+              <div class="g-recaptcha" data-sitekey="6LeNT9QUAAAAABHIFnenK3KDkG_T2evKYUXp5RI7"
+                style="width:280px;cursor: pointer;"></div><br>
+
+              <button type="submit" class="btn btn-danger mt-2" id="loginsubmit" style="width: 50%;">Login</button>
+              <div>
+                <br>
+                <a class="nav-link" href="/accounts/password_reset/" title="Forgot Password? " style="color: blue;">Forgot Password?</a>
+
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" style="width: 50%;">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SignUp Modal -->
+  <div style="width: auto ;">
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <center>
+              <h1 style="color:#252525;font-size: x-large;font-weight: bolder;">Register</h1>
+            </center><br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form method="post" action="/Account/register/" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="uname" type="text" name="uname" placeholder="Enter Your Name " title="Enter Your Name " autofocus
+                  required>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="vid" type="text" name="vid" placeholder="Enter Your EPIC-ID " title="Enter Your EPIC-ID" required>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="email" type="email" name="email" placeholder="Email Address" title="Enter Email Address" required>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="mobile" type="tel" name="mo" placeholder="Enter Mobile Number" title="Enter Mobile Number"
+                  required>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="password" type="Password" name="password" placeholder="Password " title="Enter Password" required>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="rpassword" type="Password" name="pw2" placeholder="Confirm Password " title="Enter Password Again"
+                  required>
+
+              </div><br>
+
+
+              <button type="submit" class="btn btn-danger mt-2" style="width: 50%;">Register</button>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" style="width: 50%;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Modal -->
+  <div style="width: auto ;">
+    <div class="modal fade" id="ContactUsModal" tabindex="-1" role="dialog" aria-labelledby="ContactUsModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <center>
+              <h1 style="color:#252525;font-size: x-large;font-weight: bolder;">Write To Us</h1>
+            </center><br>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form method="post" action="/home/msg/" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="uname" type="text" name="uname" value="{{user.username}}" readonly><br>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="uname" type="email" name="email" value="{{user.email}}" readonly><br>
+
+              </div><br>
+              <div>
+
+                <input
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="uname" type="text" name="sub" placeholder="Enter Subject Here" autofocus required><br>
+
+              </div><br>
+              <div>
+
+                <textarea
+                  style="width:100%;padding: 6px;cursor: pointer;color:#252525;background-color: white;border: solid #252525;"
+                  id="uname" type="text" name="msg" placeholder="Write Something" required></textarea><br>
+
+              </div><br>
+
+              <button type="submit" class="btn btn-danger mt-2" style="width: 50%;">Send</button>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" style="width: 50%;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% block body%}{%endblock%}
+
+  <!-- Footer -->
+  <!-- <footer id="main-footer" class="py-4 bg-primary text-white text-center">
+    Copyright &copy;
+    <span class="year"></span> BT Real Estate
+  </footer> -->
+
+  <script src="{% static 'assets/js/jquery-3.3.1.min.js' %} "></script>
+  <script src="{% static 'assets/js/bootstrap.bundle.min.js' %} "></script>
+  <script src="{% static 'assets/js/main.js' %} "></script>
+</body>
+
+</html>

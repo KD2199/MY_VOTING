@@ -1,0 +1,107 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Application Status{%endblock%}
+
+
+{% block body%}
+
+{% if messages %}
+{% for message in messages %}
+<center>
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" style="background-color: darkgoldenrod;columns: #252525;">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</center>
+{% endfor %}
+{% endif %}
+
+<section class="text-gray-700 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+        {% for i in obj %}
+        <div class="flex flex-col text-center w-full mb-12">
+
+            {% if i.Application_Status is False %}
+            <center><strong>
+                    <h1
+                        style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;border-radius: 20px;border: solid whitesmoke;">
+                        <label style="color:orange;">Application</label> <label style="color:whitesmoke;">Status :
+                        </label>
+                        <label style="color:greenyellow;">Pending</label></h1>
+                </strong></center>
+            {% else %}
+            <center> <strong>
+                    <h1
+                        style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;border-radius: 20px;border: solid whitesmoke;">
+                        <label style="color:orange;">Application</label> <label style="color:whitesmoke;">Status :
+                        </label>
+                        <label style="color:greenyellow;">Approved</label></h1>
+                </strong></center>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% for i in obj %}
+        <form method="post" action="/Account/status/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Showcase -->
+            <section id="showcase">
+                <div class="container text-center">
+                    <div class="home-search p-5">
+                        <div class="overlay p-5" style="border: red solid;border-radius: 20px;">
+                            <div class="search">
+                                <form action="/Account/CR/" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row" style="margin-top: 5%;">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">FullName</label>
+                                            <input type="text" name="Fname" class="form-control" value="{{i.Name}}"
+                                                readonly>
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">City</label>
+                                            <input type="text" name="city" class="form-control" value="{{i.CName}}"
+                                                required>
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">State</label>
+                                            <input type="text" name="state" class="form-control" value="{{i.SName}}"
+                                                required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">Keywords</label>
+                                            <input type="tel" name="cn" class="form-control" value="{{i.CN}}" required>
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">City</label>
+                                            <input type="email" name="email" class="form-control" value="{{i.Email}}"
+                                                required>
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="sr-only">City</label>
+                                            <input type="text" name="pp" class="form-control" value="{{i.PartyName}}"
+                                                required>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-secondary btn-block mt-4" type="submit">Save & Exit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {% endfor %}
+    </div>
+</section>
+{%endblock%}

@@ -1,0 +1,17 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Homepage{%endblock%}
+
+{% block body%}
+
+{% if messages %}
+{% for message in messages %}
+<center>
+  <h1 style="color:red;"><strong>{{ message }}</strong></h1>
+</center>
+{% endfor %}
+{% endif %}<br>
+
+<h1 style="color: red;">hello</h1>
+
+{%endblock%}

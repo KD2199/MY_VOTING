@@ -1,0 +1,58 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}VoteCasting{%endblock%}
+
+
+{% block body%}
+
+<body>
+    <form method="post"> {% csrf_token %}
+
+        <center>
+            <a href="/home/result"><input type="button" value="See Live Polling" class="btn btn-warning"
+                    style="font-weight: bold;margin-top: 5%;width: 50%;"></a>
+        </center><br>
+        <center>
+            <input type="button" value="Candidates List" class="btn btn-danger"
+                style="width: auto;cursor: pointer;border-radius: 5px;font-weight: bolder;width: 50%;"></input>
+
+        </center><br>
+        {% for temp in data %}
+        {% if temp.Application_Status is True %}
+
+        <section class="text-gray-700 body-font overflow-hidden">
+            <div class="container px-5 py-24 mx-auto">
+                <div class="lg:w-4/5 mx-auto flex flex-wrap">
+                    <div class="rounded-lg h-64 overflow-hidden">
+                        <img alt="content" class="object-cover object-center h-full w-full"
+                            src="{{temp.Profile_Image.url }}">
+                    </div>
+                    <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                        <center><strong>
+                                <h1
+                                    style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;width:80%;border-radius: 20px;">
+                                    <label style="color:orange;">{{temp.Name}}</label><br> <label
+                                        style="color:whitesmoke;">{{temp.PartyName}}</label> </h1><br>
+                            </strong></center>
+
+                        {% if not user.is_superuser%}
+                        {% for i in obj %}
+                        {% if i.Condition is False%}
+                        <center> <a href="{% url 'count' leader_pk=temp.pk %}"><input id="1" type="button"
+                                    value="Vote Now!" class="btn btn-warning" style="width: 80%;font-weight: bold;"
+                                    onclick="return check(this);"></a></center>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
+    </form>
+
+
+
+    {%endblock%}

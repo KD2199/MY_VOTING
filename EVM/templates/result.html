@@ -1,0 +1,43 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Live-Polling{%endblock%}
+
+
+{% block body%}
+
+<center>
+  <button type="submit" value="Live-Polling" class="btn btn-danger"
+    style="width:50%;cursor: pointer;border-radius: 5px;font-weight: bolder;margin-top: 5%;">Live-Polling</button>
+</center><br>
+
+{% for i in temp %}
+{% if i.Application_Status is True %}
+
+<section class="text-gray-700 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="rounded-lg h-64 overflow-hidden">
+        <img alt="content" class="object-cover object-center h-full w-full" src="{{i.Profile_Image.url }}">
+      </div>
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <center><strong>
+            <h1
+              style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;width:80%;border-radius: 20px;">
+              <label style="color:orange;">{{i.Name}}</label><br> <label
+                style="color:whitesmoke;">{{i.PartyName}}</label> </h1><br>
+          </strong></center>
+
+        <center><button class="btn btn-warning" style="width: 80%;font-weight: bold;" onclick="return check(this);">
+            Votes : {{i.Vote}}</button></center>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endif %}
+{% endfor %}
+
+
+
+{%endblock%}

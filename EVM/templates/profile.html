@@ -1,0 +1,157 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}{{user.username}}'s Profile{%endblock%}
+
+
+{% block body%}
+<center>
+    <section class="text-gray-700 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+                {% if user.is_superuser%}
+                <center>
+                    <h1
+                        style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;width:auto;border-radius: 20px;border: whitesmoke solid;">
+                        <label style="color:orange;">Administaration</label> <label style="color:whitesmoke;">'s</label>
+                        <label style="color:greenyellow;">Profile</label></h1><br><br>
+                        <img src="{{user.profile.Profile_Image.url}}" alt="UserProfile Picture" style="width: 150px;border-radius: 100px;" class="profile-userpic"><br>
+                        <form action="/Account/pupdate/">{% csrf_token %}
+                            <input type="submit" value="Update Profile"
+                                    class="btn btn-danger"><br>
+                        </form>
+                </center><br>
+                {%else%}
+                <center>
+                    <h1
+                        style="color:whitesmoke;background-color: black;font-size: x-large;padding: 20px;width:auto;border-radius: 70px;border: whitesmoke solid;">
+                        <label style="color:orange;">{{user.username}}</label> <label
+                            style="color:whitesmoke;">'s</label> <label style="color:greenyellow;">Profile</label>
+                    </h1><br><br>
+                   {% for i in obj4 %}
+                    <img src="{{user.profile.Profile_Image.url}}" alt="UserProfile Picture" style="width: 150px;" class="rounded-circle"><br>
+                    {% endfor %}
+                    <form action="/Account/pupdate/">{% csrf_token %}
+                        <input type="submit" value="Update Profile"
+                                class="btn btn-danger"><br>
+                    </form>
+                    
+                </center>
+
+                {% endif %}
+            </div>
+            {% if user.is_authenticated%}
+            <div class="flex flex-wrap -m-4 text-center">
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">{{user.username}}</p>
+                    </div>
+                </div>
+
+                {% if not user.is_superuser%}
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">{{user.email}}</p>
+                    </div><br>
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;"> Contact No :
+                            {{user.last_name}} </p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if not user.is_superuser%}
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">Epic No:
+                            {{user.first_name}}</p>
+                    </div><br>
+                    {% for i in data %}
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;"> Votes You Casted :
+                            {{i.Number_Of_Votes_You_Cast}} </p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;"> Outbox : {{obj}} </p>
+                    </div><br>
+                    <a href="/Account/Inbox/">
+                        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                            style="background-color: whitesmoke;border-color: #252525;">
+                            <p class="leading-relaxed" style="color: #252525;font-weight: bolder;"> Inbox : {{obj3}}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% if user.is_superuser%}
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">{{user.email}}</p>
+                    </div>
+                </div>
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                        style="background-color: whitesmoke;border-color: #252525;">
+                        <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">Registered Users:
+                            {{obj1}}</p>
+                    </div>
+                </div>
+
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <a href="/Account/Vp/">
+                        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg"
+                            style="background-color: whitesmoke;border-color: #252525;">
+                            <p class="leading-relaxed" style="color: #252525;font-weight: bolder;">Voter permission</p>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div>
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div>
+                        <a href="/"><input type="button" value="Return To HomePage" onclick="return check()"
+                                class="btn btn-warning" style="font-weight: bold;width: auto;"></a>
+                    </div>
+                </div>
+
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div>
+                        <a href="/accounts/password_change/"><input type="button" value="Change Password"
+                                class="btn btn-danger" style="font-weight: bold;width: auto;display:inline-block;"></a>
+                    </div>
+                </div>
+
+
+                {% if user.is_superuser%}
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div>
+                        <a href="/admin" target="_blank"><input type="button" value="DashBoard" class="btn btn-warning"
+                                style="font-weight: bold;width: auto;display:inline-block;"></a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if not user.is_superuser%}
+                <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+                    <div>
+                        <a href="/home/casted"><input type="button" value="Votes You Have Casted" class="btn btn-warning"
+                                style="font-weight: bold;width: auto;display:inline-block;"></a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</center>
+
+{%endblock%}

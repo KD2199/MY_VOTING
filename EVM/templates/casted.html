@@ -1,0 +1,77 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Your Votes{%endblock%}
+
+
+{% block body%}
+<!-- <br><br><br><br>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: center;
+        color: black;
+
+    }
+</style>
+
+<body>
+    <center>
+        <center>
+            <a href="#"><input type="button" value="Votes You Have Casted" class="btn btn-danger"
+                style="font-weight: bold;margin-left: 20px;"></a>
+        </center><br>
+        <table style="width:70%">
+
+            <tr>
+                <th>LeaderName</th>
+                <th>Political Party</th>
+            </tr>
+            {% for i in obj1 %}
+            <tr style="font-weight: bolder;color: aliceblue;">
+                <td>{{i.LeaderName}}</td>
+                <td>{{i.Political_Party}}</td>
+            </tr>
+            {% endfor %}
+        </table><br>
+
+        <a href="/Account/profile"><input type="button" value="Go Back" onclick="return check()"
+                    class="btn btn-danger" style="font-weight: bold;"></a> -->
+
+                    <div class="lg:w-2/3 w-full mx-auto overflow-auto" style="margin-top: 10%;">
+                        <table class="table-auto w-full text-left whitespace-no-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200 rounded-tl rounded-bl"
+                                        style="background-color: black;color: whitesmoke;font-weight: bolder;">
+                                        LeaderName</th>
+                                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200"
+                                        style="background-color: black;color: whitesmoke;font-weight: bolder;">Political Party
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in obj1 %}
+                                <form method="post" action="/Account/msg/">
+                                    {% csrf_token %}
+                                    <tr style="font-weight: bolder;background-color: whitesmoke;">
+                    
+                                        <td class="px-4 py-3">{{i.LeaderName}}</td>
+                                        <td class="px-4 py-3">{{i.Political_Party}}</td>
+                
+                                    </tr>
+                                </form>
+                                {% endfor %}
+                            </tbody>
+                        </table><br>
+                        <center><a href="/Account/profile"><input type="button" value="Go Back" onclick="return check()"
+                            class="btn btn-danger" style="font-weight: bold;"></a></center>
+                    </div>
+    {%endblock%}

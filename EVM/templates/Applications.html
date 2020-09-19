@@ -1,0 +1,69 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Applications{%endblock%}
+
+{% block body%}
+
+{% if messages %}
+{% for message in messages %}
+<center>
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" style="background-color: darkgoldenrod;columns: #252525;">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</center>
+{% endfor %}
+{% endif %}<br>
+
+<center>
+
+    {% for i in obj %}
+    <form method="post" action="/Account/approved/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section class="text-gray-700 body-font overflow-hidden">
+            <div class="container px-50 py-24 mx-auto">
+                <div class="lg:w-4/5 mx-auto flex flex-wrap">
+                    <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+                        <h1 class="text-red-900 text-3xl title-font font-medium mb-4" style="color: whitesmoke;font-weight: bolder;width: 80%;background-color: red;padding: 5px;border-radius: 20px;border: whitesmoke solid;">Application No :{{i.pk}} </h1>
+                        <div class="flex border-t border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">Candidate Name : <label style="color: black;">{{i.Name}}</label></h1></center>
+                        </div>
+                        <div class="flex border-t border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">City : <label style="color: black;">{{i.CName}}</label></h1></center>
+                        </div>
+                        <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">State : <label style="color: black;">{{i.SName}}</label></h1></center>
+                        </div>
+                        <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">Contact No : <label style="color: black;">{{i.CN}}</label></h1></center>
+                        </div>
+                        <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">Email : <label style="color: black;">{{i.Email}}</label></h1></center>
+                        </div>
+                        <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                            <center><h1 style="color: navy;font-weight: bolder;">Party Name : <label style="color: black;">{{i.PartyName}}</label></h1></center>
+                        </div>
+
+                        <div class="flex">
+                            <center><h1 style="color: navy;font-weight: bolder;">Application Status : 
+                            {% if i.Application_Status is False %}
+                            <input type="hidden" name="pk" value="{{i.pk}}">
+                            <input type="submit" class="btn btn-danger" value="Approve" style="margin-left: 10px;font-weight: bolder;">
+                            {% else %}
+                            <input type="button" class="btn btn-warning" value="Approved" style="margin-left: 10px;font-weight: bolder;">
+                            {% endif %}
+                        </h1></center>
+                        </div>
+                    </div>
+                    
+                    <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-50 object-cover object-center rounded" src="{{i.Profile_Image.url}}">
+
+                </div>
+            </div>
+        </section>
+    </form>
+    {% endfor %}
+</center>
+{%endblock%}

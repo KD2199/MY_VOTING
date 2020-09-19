@@ -1,0 +1,454 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Homepage{%endblock%}
+
+{% block body%}
+
+<style>
+  #cs1 a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #cs1 a:hover {
+    color: red;
+    font-size: 150%;
+
+  }
+
+  #cs1 img {
+    display: block;
+    width: auto;
+  }
+
+  .circle {
+    height: 50px;
+    width: 50px;
+    background-color: #252525;
+    border-radius: 50%;
+  }
+</style>
+
+{% if messages %}
+{% for message in messages %}
+<center>
+  <div class="alert alert-primary alert-dismissible fade show" role="alert" style="background-color: darkgoldenrod;columns: #252525;">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</center>
+{% endfor %}
+{% endif %}<br>
+
+{% if user.is_authenticated%}
+
+<!-- Showcase -->
+<section id="showcase">
+  <div class="container text-center">
+    <div class="home-search p-5">
+      <div class="overlay p-5" style="border: red solid;border-radius: 20px;">
+        <h1 class="display-4 mb-4">
+          Candidate Enrolment Application Start Apply Now!
+        </h1>
+        <div class="search">
+          <form action="/Account/CR/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">FullName</label>
+                <input type="text" name="Fname" class="form-control" placeholder="FullName" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="text" name="city" class="form-control" placeholder=" City Name" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">State</label>
+                <input type="text" name="state" class="form-control" placeholder="State Name" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input type="tel" name="cn" class="form-control" placeholder="Contact Number" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="email" name="email" class="form-control" placeholder=" Email" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <select name="pp" class="form-control">
+                  <option selected="true" disabled="disabled">Political Party</option>
+                  <option value="BJP">BJP</option>
+                  <option value="CGR">CGR</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<center>
+  <div style="margin-top: 5%;">
+
+    <strong>
+      <h1
+        style="color:whitesmoke;background-color: black;font-size:xx-large;padding: 20px;width:80%;border-radius: 20px;border: whitesmoke solid;">
+        <label style="color:orange;">Current</label> <label style="color:whitesmoke;">Active</label> <label
+          style="color:greenyellow;">Processes</label></h1>
+    </strong>
+
+    <div style="margin-top: 5%;cursor: pointer;width: 80%;">
+      <div class="row justify-content-center align-items-center">
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-user-check"><br><br>{{obj1}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:orange;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Total Candidates</h2>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-chalkboard-teacher"><br><br>{{obj2}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:whitesmoke;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Registerd Users</h2>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-eye"><br><br>{{obj}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:greenyellow;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Active Users</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</center>
+
+<div id="cs1">
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="color:orange;font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a href="/Account/vote"><label style="color: orange;">Live</label>
+            <label style="color: whitesmoke;">Voting</label>
+            <label style="color: greenyellow;">Session </label>
+            </a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <a href="/Account/vote"><img src="{% static 'vore.png'%}" alt="..." id="im"
+            class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <a href="/home/result"><img src="{% static 'poll.png'%}" alt="..." id="im"
+            class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="color:orange;font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a href="/home/result"><label style="color: orange;">Live</label>
+            <label style="color: whitesmoke;">Poll</label>
+            <label style="color: greenyellow;">Count</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="color:orange;font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a href="http://electoralsearch.in/"><label style="color: orange;">Search</label>
+            <label style="color: whitesmoke;">in</label>
+            <label style="color: greenyellow;">Electoral Roll</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <a href="/home/offer/"><img src="{% static 'search.png'%}" alt="..." id="im"
+            class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <a href="/Account/Enrlmnt"><img src="{% static 'dowload.jpg'%}" alt="..." id="im"
+            class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a href="/Account/Enrlmnt"><label style="color: orange;">Download</label>
+            <label style="color: whitesmoke;">Electoral</label>
+            <label style="color: greenyellow;"> Roll PDF</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+    </div>
+  </section>
+  <hr>
+</div>
+</div>
+
+{%else%}
+
+<!-- Showcase -->
+<section id="showcase">
+  <div class="container text-center">
+    <div class="home-search p-5">
+      <div class="overlay p-5" style="border: red solid;border-radius: 20px;">
+        <h1 class="display-4 mb-4">
+          Candidate Enrolment Application Start Apply Now!
+        </h1>
+        <div class="search">
+          <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">FullName</label>
+                <input type="text" name="Fname" class="form-control" placeholder="FullName" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="text" name="city" class="form-control" placeholder=" City Name" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">State</label>
+                <input type="text" name="state" class="form-control" placeholder="State Name" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input type="tel" name="cn" class="form-control" placeholder="Contact Number" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="email" name="email" class="form-control" placeholder=" Email" required>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <select name="pp" class="form-control">
+                  <option selected="true" disabled="disabled">Political Party</option>
+                  <option value="BJP">BJP</option>
+                  <option value="CGR">CGR</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<center>
+  <div style="margin-top: 5%;">
+
+    <strong>
+      <h1
+        style="color:whitesmoke;background-color: black;font-size: xx-large;padding: 20px;width:80%;border-radius: 20px;border: whitesmoke solid;">
+        <label style="color:orange;">Login/SignUp</label> <label style="color:whitesmoke;">To Cast</label> <label
+          style="color:greenyellow;">Your Vote!</label></h1>
+    </strong>
+
+    <div style="margin-top: 5%;cursor: pointer;width: 80%;">
+      <div class="row justify-content-center align-items-center">
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-user-check"><br><br>{{obj1}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:orange;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Total Candidates</h2>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-chalkboard-teacher"><br><br>{{obj2}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:whitesmoke;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Registerd Users</h2>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div
+            class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"
+            style="background-color: #252525;border: whitesmoke solid;">
+            <i class="fas fa-eye"><br><br>{{obj}}
+              <circle cx="12" cy="7" r="4"></circle>
+            </i>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"
+              style="color:greenyellow;font-size:medium;background-color:black;width: auto;padding: 10px;border-radius: 10px;font-weight: bolder;border: whitesmoke solid;">
+              Active Users</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+</center>
+<div id="cs1">
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a><label style="color: orange;">Live</label>
+            <label style="color: whitesmoke;">Voting</label>
+            <label style="color: greenyellow;">Session </label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <a><img src="{% static 'vore.png'%}" alt="..." id="im" class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <a><img src="{% static 'poll.png'%}" alt="..." id="im" class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a><label style="color: orange;">Live</label>
+            <label style="color: whitesmoke;">Poll</label>
+            <label style="color: greenyellow;">Count</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a><label style="color: orange;">Search</label>
+            <label style="color: whitesmoke;">in</label>
+            <label style="color: greenyellow;">Electoral Roll</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <a><img src="{% static 'search.png'%}" alt="..." id="im" class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+  <section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <a><img src="{% static 'dowload.jpg'%}" alt="..." id="im" class="rounded-lg h-64 overflow-hidden"></a>
+      </div>
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+
+        <h1 class="text-gray-900 text-lg title-font font-medium mb-3"
+          style="font-size:xx-large;background-color:royalblue;width: 80%;padding: 3px;border-radius: 10px;font-weight: bolder;border: royalblue solid;">
+          <a><label style="color: orange;">Download</label>
+            <label style="color: whitesmoke;">Electoral</label>
+            <label style="color: greenyellow;"> Roll PDF</label></a>
+          <br class="hidden lg:inline-block"><br><br>
+        </h1>
+      </div>
+    </div>
+  </section>
+  <hr>
+</div>
+{%endif %}
+
+{%endblock%}

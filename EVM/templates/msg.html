@@ -1,0 +1,44 @@
+{%extends 'basic.html'%}
+{% load static%}
+{% block title%}Write To Us{%endblock%}
+
+
+{% block body%}
+<br><br>
+<script type="text/javascript">
+
+    function check()
+    {
+        alert("WE Will Contact YOU Soon!")
+        }
+</script>
+<body>
+    <form action="/home/msg/" method="post"> 
+        {% csrf_token %}
+        <center>
+            <h1>Write To Us</h1>
+        </center><br>
+        {% if user.is_authenticated%}
+        <center>
+            <div class="container"
+                style="height:auto;width: 50%;position: relative;border: solid black 1px ;border-radius: 15px;"><br>
+                <b><label>Your Name:</label></b><input
+                    style="margin-left: 10px;width:250px;border: solid #252525;border-width: 2px;padding: 6px;border-radius: 8px;cursor: pointer;background-color:#252525;color: whitesmoke;opacity: 0.7;"
+                    id="uname" type="text" name="uname" value={{user.username}}><br><br> <b><label>Query
+                        Subject:</label></b><input
+                    style="margin-left: 9px;width:250px;border: solid #252525;border-width: 2px;padding: 6px;border-radius: 8px;cursor: pointer;background-color:#252525;color: whitesmoke;opacity: 0.7;"
+                    id="uname" type="text" name="sub" value="Enter Subject Here"><br><br>
+                <b><label>Write Message:</label></b><br>
+                <center><textarea
+                        style="margin-left: 10px;width:250px;border: solid #252525;border-width: 2px;padding: 6px;border-radius: 8px;cursor: pointer;background-color:#252525;color: whitesmoke;opacity: 0.7;"
+                        id="uname" type="text" name="msg" placeholder="Write Something"></textarea></center><br>
+                <center><input type="submit" value="Send" class="btn btn-outline-dark"
+                        style="width:130px;cursor: pointer;border-radius: 15px;padding: 6px;" onclick="return check()" ></input></center><br>
+
+            </div>
+        </center><br><br>
+
+        {% endif %}
+
+
+        {%endblock%}
