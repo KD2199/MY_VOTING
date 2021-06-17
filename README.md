@@ -1,5 +1,4 @@
 # MY_VOTING
-Now a days everything is made on the digital platform as faster and easily.I Used the same thought and developed the web based voting portal for users. 
-In This user can easily create their account and using that they can cast their vote,see details of leader,live poll of election and many more. 
+Now a days everything is made on the digital platform as faster and easily. This is a web-based application for the election process. So new candidate can apply for participating in election through web portal and the apllication will be verify by election commission. Also voter can cast their votes and see live polling, result, candidate details ,etc on
+the web portal. 
 
-Technology Used : Python Django/HTML/CSS/SQLite
