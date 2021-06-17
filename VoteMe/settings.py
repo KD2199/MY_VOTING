@@ -74,15 +74,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'VoteMe.wsgi.application'
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LeNT9QUAAAAANhcxuF9WOGMdL4sUl4xRWXctDJo'
+GOOGLE_RECAPTCHA_SECRET_KEY = ''
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST= 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'dktester2104@gmail.com'
-EMAIL_HOST_PASSWORD = "karan2104"
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ""
 
 
 # Database
